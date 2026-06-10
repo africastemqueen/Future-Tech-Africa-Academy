@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 10 — AI for Finance, Pricing & Revenue | APEX AI Masterclass</title>
+<style>
+  :root{--primary:#00C853;--accent:#FFD740;--dark:#080812;--mid:#10102A;--card:#181830;--text:#EEF0FF;--muted:#8888BB;--success:#00E676;--danger:#FF5252;--warning:#FFB74D;--gradient:linear-gradient(135deg,#00C853,#00ACC1)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7}
+  .nav-back{background:var(--mid);padding:14px 40px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .nav-back a{color:var(--accent);text-decoration:none;font-weight:600;font-size:0.9rem}
+  .progress-bar{flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;max-width:180px}
+  .progress-fill{height:100%;border-radius:3px;background:var(--accent);width:0%;transition:width 0.5s}
+  .progress-label{font-size:0.78rem;color:var(--muted)}
+  .hero{background:var(--gradient);padding:80px 40px 60px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.15)}
+  .hero>*{position:relative}
+  .mod-badge{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.3);border-radius:50px;display:inline-block;padding:6px 20px;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+  .hero h1{font-size:clamp(1.9rem,5vw,3.2rem);font-weight:900;margin-bottom:14px;line-height:1.15}
+  .hero p{font-size:1.1rem;opacity:0.92;max-width:580px;margin:0 auto 28px}
+  .meta{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-size:0.88rem;opacity:0.88}
+  .container{max-width:860px;margin:0 auto;padding:60px 24px}
+  .sec-num{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .sec-title{font-size:1.85rem;font-weight:900;margin-bottom:12px}
+  .sec-sub{color:var(--muted);font-size:1rem;margin-bottom:0}
+  .sec-header{margin-bottom:36px}
+  .card{background:var(--card);border-radius:16px;padding:26px;margin-bottom:18px;border:1px solid rgba(255,255,255,0.06)}
+  .card-green{border-left:4px solid var(--primary)}
+  .card-gold{border-left:4px solid var(--accent)}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin:22px 0}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:22px 0}
+  .callout{border-radius:12px;padding:20px 24px;margin:22px 0;display:flex;gap:14px;align-items:flex-start}
+  .co-green{background:rgba(0,200,83,0.08);border:1px solid rgba(0,200,83,0.25)}
+  .co-gold{background:rgba(255,215,64,0.07);border:1px solid rgba(255,215,64,0.25)}
+  .co-red{background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.25)}
+  .co-blue{background:rgba(0,172,193,0.08);border:1px solid rgba(0,172,193,0.25)}
+  .ci{font-size:1.4rem;flex-shrink:0}
+  .callout h4{font-weight:700;margin-bottom:4px}
+  .callout p,.callout ul{font-size:0.92rem;color:var(--muted)}
+  .callout ul{padding-left:16px}
+  .callout ul li{margin-bottom:4px}
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:28px 0}
+  .stat{background:var(--card);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(255,255,255,0.06)}
+  .stat-n{font-size:2rem;font-weight:900;color:var(--accent);display:block}
+  .stat-l{font-size:0.8rem;color:var(--muted);margin-top:3px}
+  .obj-list{list-style:none;padding:0}
+  .obj-list li{padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:flex-start;gap:10px;font-size:0.93rem}
+  .obj-list li::before{content:'✓';color:var(--success);font-weight:900;flex-shrink:0}
+  .tool-card{background:var(--card);border-radius:14px;padding:22px;border:1px solid rgba(255,255,255,0.06)}
+  .tool-name{font-weight:800;font-size:1rem;margin-bottom:6px}
+  .tool-cat{font-size:0.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:2px 10px;border-radius:4px;display:inline-block;margin-bottom:10px}
+  .free{background:rgba(0,230,118,0.12);color:var(--success)}
+  .paid{background:rgba(255,183,77,0.12);color:var(--warning)}
+  .tool-card p{font-size:0.87rem;color:var(--muted)}
+  .tool-tip{background:#0D0D22;border:1px solid rgba(0,200,83,0.2);border-radius:8px;padding:12px 15px;margin-top:10px;font-size:0.82rem;color:#80FFAA;font-family:'Courier New',monospace}
+  .pull{background:var(--gradient);border-radius:16px;padding:28px;text-align:center;margin:36px 0;position:relative;overflow:hidden}
+  .pull::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.15)}
+  .pull>*{position:relative}
+  .pull blockquote{font-size:1.2rem;font-weight:800;font-style:italic;line-height:1.4;margin-bottom:10px}
+  .pull cite{font-size:0.88rem;opacity:0.85}
+  .exercise{background:var(--mid);border-radius:16px;padding:28px;margin:28px 0;border:2px dashed rgba(0,200,83,0.3)}
+  .ex-badge{background:var(--primary);color:white;border-radius:50px;display:inline-block;padding:4px 14px;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+  .exercise h3{font-size:1.15rem;font-weight:800;margin-bottom:10px}
+  .exercise p,.exercise ol,.exercise ul{color:var(--muted);font-size:0.93rem}
+  .exercise ol,.exercise ul{padding-left:18px;margin-top:8px}
+  .exercise li{margin-bottom:7px}
+  .exercise textarea{width:100%;background:var(--card);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:13px;color:var(--text);font-size:0.92rem;margin-top:14px;resize:vertical;min-height:90px;font-family:inherit}
+  .exercise textarea:focus{outline:none;border-color:var(--primary)}
+  .btn{background:var(--primary);color:#000;border:none;border-radius:10px;padding:11px 22px;cursor:pointer;font-size:0.92rem;font-weight:800;transition:opacity 0.2s;margin-top:10px}
+  .btn:hover{opacity:0.85}
+  .quiz{background:var(--mid);border-radius:20px;padding:32px;margin:44px 0;border:1px solid rgba(0,200,83,0.25)}
+  .quiz h3{font-size:1.35rem;font-weight:800;color:var(--accent);margin-bottom:6px}
+  .quiz-sub{color:var(--muted);margin-bottom:26px;font-size:0.92rem}
+  .q{margin-bottom:28px}
+  .q h4{font-size:0.97rem;font-weight:700;margin-bottom:14px}
+  .opts{display:flex;flex-direction:column;gap:9px}
+  .opt{background:var(--card);border:2px solid rgba(255,255,255,0.07);border-radius:10px;padding:13px 17px;cursor:pointer;font-size:0.92rem;text-align:left;color:var(--text);transition:all 0.2s}
+  .opt:hover{border-color:var(--primary);background:rgba(0,200,83,0.08)}
+  .opt.correct{border-color:var(--success)!important;background:rgba(0,230,118,0.12)!important}
+  .opt.incorrect{border-color:var(--danger)!important;background:rgba(255,82,82,0.1)!important}
+  .fb{margin-top:10px;padding:11px 15px;border-radius:8px;font-size:0.88rem;display:none}
+  .fb.show{display:block}
+  .fb.correct{background:rgba(0,230,118,0.12);color:var(--success)}
+  .fb.incorrect{background:rgba(255,82,82,0.1);color:#ff8080}
+  .divider{border:none;border-top:1px solid rgba(255,255,255,0.07);margin:44px 0}
+  .pricing-table{width:100%;border-collapse:collapse;margin:22px 0}
+  .pricing-table th{background:rgba(0,200,83,0.12);color:var(--success);padding:12px 16px;text-align:left;font-size:0.82rem;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid rgba(0,200,83,0.2)}
+  .pricing-table td{padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.9rem;color:var(--muted)}
+  .pricing-table tr:last-child td{border-bottom:none}
+  .pricing-table td:first-child{color:var(--text);font-weight:600}
+  .bwp{color:var(--accent);font-weight:800}
+  .next-mod{background:var(--gradient);border-radius:20px;padding:36px;text-align:center;margin-top:56px;position:relative;overflow:hidden}
+  .next-mod::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.15)}
+  .next-mod>*{position:relative}
+  .next-mod h3{font-size:1.45rem;font-weight:800;margin-bottom:8px}
+  .next-mod p{opacity:0.9;margin-bottom:22px}
+  .btn-dark{background:#000;color:#00C853;border-radius:12px;padding:13px 28px;font-weight:800;text-decoration:none;display:inline-block;transition:transform 0.2s}
+  .btn-dark:hover{transform:scale(1.04)}
+  @media(max-width:600px){.hero{padding:50px 20px 40px}.container{padding:40px 16px}}
+</style>
+</head>
+<body>
+
+<nav class="nav-back">
+  <a href="../index.html">← Masterclass</a>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <span class="progress-label" id="prog-label">0% complete</span>
+</nav>
+
+<div class="hero">
+  <div class="mod-badge">Module 10 · High Value · APEX AI Masterclass</div>
+  <h1>AI for Finance, Pricing &amp; Revenue Growth</h1>
+  <p>Stop guessing your prices. Stop undercharging. AI gives you the tools to build data-driven financial intelligence into your business.</p>
+  <div class="meta">
+    <span>⏱️ 2.5 hours</span><span>💰 High Revenue Impact</span><span>📊 Finance Tools Included</span><span>🇧🇼 BWP Examples Throughout</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="sec-header" style="margin-top:20px">
+    <div class="sec-num">01 · What You'll Master</div>
+    <h2 class="sec-title">Learning Objectives</h2>
+  </div>
+  <div class="card card-green">
+    <ul class="obj-list">
+      <li>Use AI to analyse your revenue patterns and identify your highest-value income streams</li>
+      <li>Build a value-based pricing model that reflects your actual market position</li>
+      <li>Use AI for cash flow forecasting — spot problems before they become crises</li>
+      <li>Automate financial reports and dashboards that save hours of manual work</li>
+      <li>Identify pricing gaps — what you're leaving on the table right now</li>
+      <li>Build a 90-day revenue growth plan using AI-assisted market analysis</li>
+    </ul>
+  </div>
+
+  <div class="callout co-red">
+    <span class="ci">🚨</span>
+    <div>
+      <h4>The Problem This Module Solves</h4>
+      <p>Most professionals and business owners in Africa are undercharging. Not by 10% — by 30–200%. The reason is not lack of value; it's lack of data and confidence. AI changes both. This module is about building financial intelligence, not just financial literacy.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- AI + FINANCE -->
+  <div class="sec-header">
+    <div class="sec-num">02 · The Landscape</div>
+    <h2 class="sec-title">Where AI Transforms Finance</h2>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><span class="stat-n">87%</span><span class="stat-l">of SMEs undercharge for services</span></div>
+    <div class="stat"><span class="stat-n">62%</span><span class="stat-l">cite cash flow as top business stress</span></div>
+    <div class="stat"><span class="stat-n">3x</span><span class="stat-l">revenue uplift from value-based vs cost-plus pricing</span></div>
+    <div class="stat"><span class="stat-n">40%</span><span class="stat-l">of financial analysis time can be automated with AI</span></div>
+  </div>
+
+  <div class="grid3">
+    <div class="card" style="text-align:center;border-top:3px solid var(--primary)">
+      <div style="font-size:2rem;margin-bottom:10px">📊</div>
+      <div style="font-weight:800;margin-bottom:6px">Revenue Analysis</div>
+      <div style="font-size:0.85rem;color:var(--muted)">Identify patterns, peaks, and your most profitable products/clients</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent)">
+      <div style="font-size:2rem;margin-bottom:10px">💰</div>
+      <div style="font-weight:800;margin-bottom:6px">Pricing Intelligence</div>
+      <div style="font-size:0.85rem;color:var(--muted)">Market benchmarking, value quantification, competitive positioning</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #00ACC1">
+      <div style="font-size:2rem;margin-bottom:10px">🔮</div>
+      <div style="font-weight:800;margin-bottom:6px">Cash Flow Forecasting</div>
+      <div style="font-size:0.85rem;color:var(--muted)">Predict shortfalls 30–90 days before they happen</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #AB47BC">
+      <div style="font-size:2rem;margin-bottom:10px">📋</div>
+      <div style="font-weight:800;margin-bottom:6px">Automated Reports</div>
+      <div style="font-size:0.85rem;color:var(--muted)">Financial summaries, dashboards, investor updates in minutes</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #EF5350">
+      <div style="font-size:2rem;margin-bottom:10px">🎯</div>
+      <div style="font-weight:800;margin-bottom:6px">Cost Optimisation</div>
+      <div style="font-size:0.85rem;color:var(--muted)">Find waste, renegotiate, restructure — with AI analysis support</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #F5C842">
+      <div style="font-size:2rem;margin-bottom:10px">📈</div>
+      <div style="font-weight:800;margin-bottom:6px">Growth Modelling</div>
+      <div style="font-size:0.85rem;color:var(--muted)">Scenario planning: what if we raise prices by 20%? Add a product?</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PRICING -->
+  <div class="sec-header">
+    <div class="sec-num">03 · The Money Section</div>
+    <h2 class="sec-title">Pricing Intelligence — Stop Undercharging</h2>
+    <p class="sec-sub">This section will make you uncomfortable. It should. Discomfort here usually means money is being left on the table.</p>
+  </div>
+
+  <div class="callout co-gold">
+    <span class="ci">💡</span>
+    <div>
+      <h4>The Three Pricing Models — Know Which You're Using and Why</h4>
+      <ul>
+        <li><strong>Cost-plus pricing:</strong> "It costs me X to produce, I add 30% margin." Simple, common, and almost always leaves money on the table.</li>
+        <li><strong>Competitive pricing:</strong> "Others charge X, I'll charge Y." Anchors your value to competitors who may be undercharging too.</li>
+        <li><strong>Value-based pricing:</strong> "The client gets W value from this — my price reflects that." The most profitable model. Requires you to quantify value — which is where AI helps.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-gold">
+    <h3 style="margin-bottom:14px">🤖 AI-Assisted Value Quantification Prompt</h3>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Use this prompt to build your value-based pricing case. This single exercise has helped professionals increase their rates by 40–150%.</p>
+    <div style="background:#0D0D22;border:1px solid rgba(255,215,64,0.2);border-radius:12px;padding:20px;font-family:'Courier New',monospace;font-size:0.88rem;color:#FFD740;line-height:1.7">
+      "I provide [your service] to [client type] in [industry/location].<br><br>
+      Help me quantify the value I create. For each of these categories, estimate the annual financial value to a typical client:<br>
+      1. Time saved (hours × their hourly rate or equivalent)<br>
+      2. Revenue increased (if applicable)<br>
+      3. Costs avoided (mistakes, inefficiencies, risk)<br>
+      4. Competitive advantage gained<br>
+      5. Peace of mind / risk reduction (estimate conservatively)<br><br>
+      Based on this value calculation, what would be a defensible price range for my service?<br>
+      Compare to my current rate of [your current rate]. Am I undercharging, and if so, by how much?"
+    </div>
+  </div>
+
+  <div class="card card-green">
+    <h3 style="margin-bottom:16px">📊 Pricing Benchmarking — Botswana &amp; Regional Context</h3>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:18px">Illustrative benchmarks for common professional services. Use as a starting point, not a ceiling.</p>
+    <div style="overflow-x:auto">
+    <table class="pricing-table">
+      <thead>
+        <tr><th>Service</th><th>Low-end Market Rate</th><th>Mid-Market Rate</th><th>Expert/Premium Rate</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Corporate Training (full day)</td><td class="bwp">BWP 5,000–8,000</td><td class="bwp">BWP 12,000–20,000</td><td class="bwp">BWP 25,000–50,000+</td></tr>
+        <tr><td>Executive Coaching (per session)</td><td class="bwp">BWP 800–1,500</td><td class="bwp">BWP 2,500–5,000</td><td class="bwp">BWP 8,000–15,000</td></tr>
+        <tr><td>AI Literacy Workshop (half day)</td><td class="bwp">BWP 3,000–5,000</td><td class="bwp">BWP 8,000–15,000</td><td class="bwp">BWP 20,000–40,000</td></tr>
+        <tr><td>Strategy Consulting (per day)</td><td class="bwp">BWP 4,000–7,000</td><td class="bwp">BWP 10,000–18,000</td><td class="bwp">BWP 25,000–60,000</td></tr>
+        <tr><td>Online Course (per student)</td><td class="bwp">USD 97–197</td><td class="bwp">USD 297–497</td><td class="bwp">USD 997–2,997</td></tr>
+        <tr><td>Keynote Speaking (per event)</td><td class="bwp">BWP 8,000–15,000</td><td class="bwp">BWP 25,000–50,000</td><td class="bwp">BWP 75,000–200,000+</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-top:8px">*Indicative ranges only. International/NGO/donor-funded clients typically pay at or above upper ranges. Government clients in SADC tend toward mid-market with longer procurement cycles.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- AI TOOLS FOR FINANCE -->
+  <div class="sec-header">
+    <div class="sec-num">04 · Your AI Finance Stack</div>
+    <h2 class="sec-title">Tools That Do the Heavy Lifting</h2>
+  </div>
+
+  <div class="grid2">
+    <div class="tool-card">
+      <div class="tool-cat free">Free Tier Available</div>
+      <div class="tool-name">ChatGPT / Claude</div>
+      <p>Financial analysis, pricing models, report writing, scenario planning, proposal costing. Paste your spreadsheet data and ask it to interpret, summarise, or identify anomalies.</p>
+      <div class="tool-tip">Prompt: "Analyse this revenue data: [paste]. Identify my top 3 revenue sources, biggest growth opportunity, and one hidden risk."</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-cat free">Free</div>
+      <div class="tool-name">Google Sheets + Gemini AI</div>
+      <p>Build financial models in Sheets with AI assistance. Ask Gemini to create formulas, interpret data, flag outliers, or generate forecasts from your existing data.</p>
+      <div class="tool-tip">Prompt: "Create a 12-month cash flow forecast formula based on this monthly revenue history: [data]"</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-cat paid">Paid — High ROI</div>
+      <div class="tool-name">Microsoft Copilot (Excel)</div>
+      <p>For professionals already in the Microsoft ecosystem. Ask in plain language to create pivot tables, charts, and financial summaries from your Excel data without writing formulas.</p>
+      <div class="tool-tip">Tip: "Create a PivotTable showing revenue by client and month, highlight the top 3 performers"</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-cat free">Free Tier Available</div>
+      <div class="tool-name">Wave / QuickBooks AI</div>
+      <p>Wave is free accounting software with AI-assisted categorisation. QuickBooks has AI features for cash flow forecasting and financial health dashboards.</p>
+      <div class="tool-tip">Wave is particularly suited for African SMEs — no subscription fee, bank-level security, handles multiple currencies.</div>
+    </div>
+  </div>
+
+  <div class="callout co-blue">
+    <span class="ci">🇧🇼</span>
+    <div>
+      <h4>Botswana-Specific Note</h4>
+      <p>BURS (Botswana Unified Revenue Service) compliance, VAT calculations at 14%, and PAYE processing can all be managed with AI-assisted prompts. AI can also help you read and interpret tender documents, government procurement requirements, and supplier development framework requirements — which is valuable for professionals targeting government and state-owned enterprise contracts.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CASH FLOW -->
+  <div class="sec-header">
+    <div class="sec-num">05 · Critical Skill</div>
+    <h2 class="sec-title">AI-Assisted Cash Flow Forecasting</h2>
+    <p class="sec-sub">Cash flow kills more viable businesses than bad products. AI can spot trouble 60–90 days early — but only if you're feeding it data.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid var(--success)">
+      <h3 style="color:var(--success);margin-bottom:12px">📥 What to Feed AI</h3>
+      <ul style="padding-left:16px;color:var(--muted);font-size:0.9rem;display:flex;flex-direction:column;gap:6px">
+        <li>Last 12 months of revenue (month by month)</li>
+        <li>Known upcoming expenses by month</li>
+        <li>Outstanding invoices + expected payment dates</li>
+        <li>Confirmed upcoming contracts</li>
+        <li>Fixed costs: rent, salaries, subscriptions</li>
+        <li>Seasonal patterns (if any)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent)">
+      <h3 style="color:var(--accent);margin-bottom:12px">📤 What AI Produces</h3>
+      <ul style="padding-left:16px;color:var(--muted);font-size:0.9rem;display:flex;flex-direction:column;gap:6px">
+        <li>Month-by-month cash position forecast</li>
+        <li>Low-cash warning months flagged in advance</li>
+        <li>"What if" scenarios (what if invoice X is late?)</li>
+        <li>Recommended buffer amount</li>
+        <li>Growth scenario: impact of adding one client</li>
+        <li>Summary report suitable for a bank or investor</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-green" style="margin-top:8px">
+    <h3 style="margin-bottom:14px">Cash Flow Forecast Prompt</h3>
+    <div style="background:#0D0D22;border:1px solid rgba(0,200,83,0.2);border-radius:10px;padding:18px;font-family:'Courier New',monospace;font-size:0.87rem;color:#80FFAA;line-height:1.7">
+      "Here is my financial data for the past 6 months: [paste monthly revenue and expense figures].<br><br>
+      Known upcoming items:<br>
+      - [expense/invoice] due [month]: [amount]<br>
+      - [expense/invoice] due [month]: [amount]<br><br>
+      Please:<br>
+      1. Create a 3-month cash flow forecast table showing opening balance, inflows, outflows, and closing balance<br>
+      2. Flag any months where cash may go below [your safety buffer, e.g. BWP 50,000]<br>
+      3. Identify the single biggest cash flow risk in the next 90 days<br>
+      4. Give me one action to reduce that risk<br><br>
+      Assume payment terms: clients pay within 30 days of invoice."
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EXERCISES -->
+  <div class="exercise">
+    <div class="ex-badge">Exercise 01 · Critical</div>
+    <h3>💰 The Undercharging Audit</h3>
+    <p>This exercise is confronting for most people. Do it anyway.</p>
+    <ol>
+      <li>List your top 3 products or services with their current prices.</li>
+      <li>For each one, write one sentence describing the value it delivers to the client.</li>
+      <li>Run the Value Quantification prompt (Section 03) for each product/service in ChatGPT or Claude.</li>
+      <li>Compare AI's value estimate to your current price.</li>
+      <li>Write the gap: "I am undercharging for [X] by approximately [amount/percentage]."</li>
+    </ol>
+    <textarea placeholder="Product/Service 1: [name] — Current price: [amount]
+Value it delivers: ...
+AI's value estimate: ...
+Gap: ...
+
+Product/Service 2: ..."></textarea>
+    <br><button class="btn" onclick="this.textContent='✅ Audit complete. That gap is your opportunity.'">Save My Pricing Audit</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-badge">Exercise 02 · Practical</div>
+    <h3>📊 Your First AI Financial Summary</h3>
+    <p>Build the habit of letting AI interpret your numbers — not just store them.</p>
+    <ol>
+      <li>Open your last 3 months of invoices, bank statements, or income records.</li>
+      <li>Summarise the numbers in a simple table: Month, Revenue, Main Expense, Net.</li>
+      <li>Paste into ChatGPT or Claude with this request: <em>"Analyse this data. Give me: top revenue source, biggest cost drain, one risk I might not be seeing, and one growth action for next month."</em></li>
+      <li>Paste the AI's 3 most useful insights below.</li>
+    </ol>
+    <textarea placeholder="AI Insight 1 (most surprising):
+
+AI Insight 2 (most actionable):
+
+AI Insight 3 (what I'm going to do about it):"></textarea>
+    <br><button class="btn" onclick="this.textContent='✅ Financial intelligence exercise complete!'">Save Insights</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-badge">Exercise 03 · Revenue Growth</div>
+    <h3>📈 90-Day Revenue Growth Plan</h3>
+    <p>Use this AI prompt to build a personalised 90-day revenue plan.</p>
+    <p style="margin-top:10px">Prompt to use: <em>"I run a [type of business] in [location]. Current monthly revenue: [amount]. Target in 90 days: [amount]. Services: [list]. Clients: [describe]. Constraints: [time/team/budget]. Build me a 90-day revenue growth plan with weekly milestones, prioritised actions, and the single most impactful change I should make in Week 1."</em></p>
+    <textarea placeholder="Week 1 priorities from AI:
+
+Biggest revenue lever identified:
+
+One constraint I need to address first:
+
+My committed 90-day revenue target:"></textarea>
+    <br><button class="btn" onclick="this.textContent='✅ 90-day plan started!'">Save My Revenue Plan</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz">
+    <h3>🧠 Finance &amp; Revenue Check</h3>
+    <p class="quiz-sub">Apply the frameworks — these test financial intelligence, not just knowledge.</p>
+
+    <div class="q" id="q1">
+      <h4>1. You're charging BWP 3,000 for a half-day training. AI analysis shows the value to the client is approximately BWP 45,000 in productivity gains. What should you do?</h4>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false,'q1','This avoids the issue. If the value analysis is sound, the pricing gap is a revenue problem you should address, not ignore.')">Nothing — the market rate is the market rate</button>
+        <button class="opt" onclick="ans(this,false,'q1','Jumping to 10x might be right but needs a positioning and communication strategy. Incremental repositioning is often more effective than a sudden jump.')">Immediately raise to BWP 30,000</button>
+        <button class="opt" onclick="ans(this,true,'q1','✅ Correct. Value-based pricing requires you to be able to articulate that value to the client. The gap between BWP 3,000 and BWP 45,000 in value is your pricing opportunity — but you need to communicate the value first, then raise prices with a clear rationale.')">Research where in the value chain the gap is largest, develop a value communication strategy, and build toward a higher price point for clients where you can demonstrate ROI clearly</button>
+        <button class="opt" onclick="ans(this,false,'q1','AI estimates should be tested against reality, but the right response is to use the insight to inform pricing strategy — not dismiss it entirely.')">Disregard the AI estimate — it can\'t accurately value professional services</button>
+      </div>
+      <div class="fb" id="fb-q1"></div>
+    </div>
+
+    <div class="q" id="q2">
+      <h4>2. What is the biggest limitation of using AI for financial forecasting?</h4>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false,'q2','AI tools like ChatGPT and Claude handle basic financial calculations accurately. This is not the primary limitation.')">AI can\'t do financial calculations accurately</button>
+        <button class="opt" onclick="ans(this,true,'q2','✅ Correct. AI forecasts are only as reliable as the data you put in. Garbage in, garbage out. AI cannot observe market conditions, account for payment delays it doesn\'t know about, or factor in your local context unless you explicitly provide it. Your judgement and local knowledge must validate every AI-generated forecast.')">AI can only forecast based on data you provide — it cannot account for market conditions, client behaviour patterns, or local context it hasn\'t been told about</button>
+        <button class="opt" onclick="ans(this,false,'q2','AI tools produce good financial output in plain English and can format for Excel. This is not the primary limitation.')">AI financial reports are too technical for non-accountants to understand</button>
+        <button class="opt" onclick="ans(this,false,'q2','Most major AI tools handle multiple currencies correctly when prompted. This is not the primary limitation.')">AI can\'t handle multiple currencies like BWP and USD</button>
+      </div>
+      <div class="fb" id="fb-q2"></div>
+    </div>
+
+    <div class="q" id="q3">
+      <h4>3. What is value-based pricing and why does it typically generate more revenue than cost-plus pricing?</h4>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false,'q3','Value-based pricing is not about charging whatever the market accepts — it\'s about pricing based on quantifiable value delivered to the specific client.')">Charging whatever the market will accept without justification</button>
+        <button class="opt" onclick="ans(this,false,'q3','This describes competitive pricing, not value-based pricing.')">Matching your competitors\' prices to stay competitive</button>
+        <button class="opt" onclick="ans(this,true,'q3','✅ Correct. Value-based pricing anchors the price to the outcome the client receives, not your costs. Since the value delivered is often dramatically higher than what it costs you to deliver it, this model consistently generates higher prices and margins than cost-plus — as long as you can articulate and substantiate the value.')">Pricing based on the measurable value delivered to the client — which is typically much higher than production cost, allowing for significantly higher margins</button>
+        <button class="opt" onclick="ans(this,false,'q3','Cost-plus pricing includes a profit margin. The issue with it is that it ignores whether the client would pay more based on value received.')">Adding a fixed percentage to your costs — same as cost-plus but more transparent</button>
+      </div>
+      <div class="fb" id="fb-q3"></div>
+    </div>
+  </div>
+
+  <div class="pull">
+    <blockquote>"Revenue is not random. It is the result of decisions — about pricing, positioning, and who you choose to serve. AI helps you make those decisions with data instead of guesswork."</blockquote>
+  </div>
+
+  <div class="next-mod">
+    <h3>You've Got the Finance Intelligence. Now Let's Monetise Your AI Skills Directly.</h3>
+    <p>Module 14 — The Revenue Play — is where everything in this masterclass converts into income.</p>
+    <a href="14-revenue-play.html" class="btn-dark">→ Module 14: The Revenue Play</a>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{
+    const pct=Math.round((window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100);
+    document.getElementById('progress').style.width=pct+'%';
+    document.getElementById('prog-label').textContent=pct+'% complete';
+  });
+  function ans(btn,ok,qid,txt){
+    document.getElementById(qid).querySelectorAll('.opt').forEach(b=>b.disabled=true);
+    btn.classList.add(ok?'correct':'incorrect');
+    const fb=document.getElementById('fb-'+qid);
+    fb.className='fb show '+(ok?'correct':'incorrect');
+    fb.textContent=txt;
+  }
+</script>
+</body>
+</html>

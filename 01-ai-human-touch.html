@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 01 — AI & Tech with a Human Touch | FutureTech Africa</title>
+<style>
+  :root {
+    --primary: #6C3FC5;
+    --accent: #F5A623;
+    --dark: #0D0D1A;
+    --mid: #1C1C3A;
+    --card: #252547;
+    --text: #E8E8F0;
+    --muted: #9090B8;
+    --success: #2ECC71;
+    --warning: #F39C12;
+    --danger: #E74C3C;
+    --gradient: linear-gradient(135deg, #6C3FC5 0%, #3B82F6 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--dark); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.7; }
+
+  /* HERO */
+  .hero {
+    background: var(--gradient);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .module-badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; display: inline-block; padding: 6px 20px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+  .hero h1 span { color: var(--accent); }
+  .hero .tagline { font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+  .meta-row { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; opacity: 0.85; font-size: 0.9rem; }
+  .meta-row span::before { margin-right: 6px; }
+
+  /* NAV */
+  .nav-back { background: var(--mid); padding: 14px 40px; display: flex; align-items: center; gap: 10px; }
+  .nav-back a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .progress-bar { flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; max-width: 200px; }
+  .progress-fill { height: 100%; border-radius: 3px; background: var(--accent); width: 0%; transition: width 0.5s ease; }
+  .progress-label { font-size: 0.8rem; color: var(--muted); }
+
+  /* LAYOUT */
+  .container { max-width: 860px; margin: 0 auto; padding: 60px 24px; }
+
+  /* SECTION HEADERS */
+  .section-header { margin-bottom: 40px; }
+  .section-number { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+  .section-header h2 { font-size: 1.9rem; font-weight: 800; }
+  .section-header p { color: var(--muted); margin-top: 8px; font-size: 1.05rem; }
+
+  /* CARDS */
+  .card { background: var(--card); border-radius: 16px; padding: 28px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.06); }
+  .card-accent { border-left: 4px solid var(--primary); }
+  .card-gold { border-left: 4px solid var(--accent); }
+  .card-green { border-left: 4px solid var(--success); }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 24px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0; }
+
+  /* CONCEPT CARDS */
+  .concept-card { background: var(--card); border-radius: 12px; padding: 24px; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.2s, border-color 0.2s; }
+  .concept-card:hover { transform: translateY(-4px); border-color: var(--primary); }
+  .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+  .concept-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+  .concept-card p { font-size: 0.9rem; color: var(--muted); }
+
+  /* QUOTES */
+  .pullquote { background: linear-gradient(135deg, rgba(108,63,197,0.2), rgba(59,130,246,0.2)); border-radius: 16px; padding: 32px; text-align: center; margin: 40px 0; border: 1px solid rgba(108,63,197,0.3); }
+  .pullquote blockquote { font-size: 1.4rem; font-weight: 700; font-style: italic; line-height: 1.4; margin-bottom: 12px; }
+  .pullquote cite { color: var(--accent); font-size: 0.9rem; }
+
+  /* TOOL CARDS */
+  .tool-card { background: var(--card); border-radius: 12px; padding: 20px 24px; display: flex; align-items: flex-start; gap: 16px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 12px; }
+  .tool-emoji { font-size: 1.8rem; flex-shrink: 0; }
+  .tool-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .tool-card p { font-size: 0.88rem; color: var(--muted); }
+  .tool-card .use-case { margin-top: 8px; background: rgba(108,63,197,0.2); border-radius: 6px; padding: 6px 10px; font-size: 0.8rem; color: var(--accent); }
+
+  /* CALLOUTS */
+  .callout { border-radius: 12px; padding: 20px 24px; margin: 24px 0; display: flex; gap: 16px; align-items: flex-start; }
+  .callout-insight { background: rgba(108,63,197,0.15); border: 1px solid rgba(108,63,197,0.3); }
+  .callout-warning { background: rgba(243,156,18,0.12); border: 1px solid rgba(243,156,18,0.3); }
+  .callout-action { background: rgba(46,204,113,0.12); border: 1px solid rgba(46,204,113,0.3); }
+  .callout-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .callout h4 { font-weight: 700; margin-bottom: 4px; }
+  .callout p, .callout ul { font-size: 0.93rem; color: var(--muted); }
+  .callout ul { padding-left: 18px; }
+  .callout ul li { margin-bottom: 4px; }
+
+  /* QUIZ */
+  .quiz-section { background: var(--mid); border-radius: 20px; padding: 36px; margin: 48px 0; border: 1px solid rgba(108,63,197,0.3); }
+  .quiz-section h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; color: var(--accent); }
+  .quiz-section .quiz-intro { color: var(--muted); margin-bottom: 28px; }
+  .question { margin-bottom: 32px; }
+  .question h4 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option { background: var(--card); border: 2px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: all 0.2s; font-size: 0.93rem; text-align: left; color: var(--text); }
+  .option:hover { border-color: var(--primary); background: rgba(108,63,197,0.2); }
+  .option.correct { border-color: var(--success) !important; background: rgba(46,204,113,0.15) !important; }
+  .option.incorrect { border-color: var(--danger) !important; background: rgba(231,76,60,0.15) !important; }
+  .feedback { margin-top: 12px; padding: 12px 16px; border-radius: 8px; font-size: 0.9rem; display: none; }
+  .feedback.show { display: block; }
+  .feedback.correct { background: rgba(46,204,113,0.15); color: var(--success); }
+  .feedback.incorrect { background: rgba(231,76,60,0.1); color: #ff8080; }
+
+  /* EXERCISE */
+  .exercise { background: var(--mid); border-radius: 16px; padding: 32px; margin: 32px 0; border: 2px dashed rgba(245,166,35,0.4); }
+  .exercise-badge { background: var(--accent); color: var(--dark); border-radius: 50px; display: inline-block; padding: 4px 16px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .exercise h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
+  .exercise p { color: var(--muted); margin-bottom: 16px; font-size: 0.95rem; }
+  .exercise ol, .exercise ul { color: var(--muted); padding-left: 20px; font-size: 0.95rem; }
+  .exercise li { margin-bottom: 8px; }
+  .exercise textarea { width: 100%; background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px; color: var(--text); font-size: 0.93rem; margin-top: 16px; resize: vertical; min-height: 100px; font-family: inherit; }
+  .exercise textarea:focus { outline: none; border-color: var(--primary); }
+  .btn { background: var(--primary); color: white; border: none; border-radius: 10px; padding: 12px 24px; cursor: pointer; font-size: 0.93rem; font-weight: 700; transition: opacity 0.2s; margin-top: 12px; }
+  .btn:hover { opacity: 0.85; }
+  .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+
+  /* STATS */
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 32px 0; }
+  .stat { background: var(--card); border-radius: 12px; padding: 24px; text-align: center; border: 1px solid rgba(255,255,255,0.06); }
+  .stat-number { font-size: 2.4rem; font-weight: 900; color: var(--accent); display: block; }
+  .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: rgba(108,63,197,0.3); }
+  .timeline-item { position: relative; padding-bottom: 32px; }
+  .timeline-item::before { content: ''; position: absolute; left: -26px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 2px solid var(--dark); }
+  .timeline-item h4 { font-weight: 700; margin-bottom: 4px; }
+  .timeline-item .year { color: var(--accent); font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; }
+  .timeline-item p { font-size: 0.9rem; color: var(--muted); }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 48px 0; }
+
+  /* NEXT MODULE */
+  .next-module { background: var(--gradient); border-radius: 20px; padding: 40px; text-align: center; margin-top: 60px; }
+  .next-module h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .next-module p { opacity: 0.85; margin-bottom: 24px; }
+  .btn-white { background: white; color: var(--primary); border-radius: 12px; padding: 14px 32px; font-weight: 800; text-decoration: none; display: inline-block; transition: transform 0.2s; }
+  .btn-white:hover { transform: scale(1.04); }
+
+  /* OBJECTIVES */
+  .obj-list { list-style: none; padding: 0; }
+  .obj-list li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; }
+  .obj-list li::before { content: '✓'; color: var(--success); font-weight: 900; flex-shrink: 0; }
+
+  /* HUMAN VS AI TABLE */
+  .comparison-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+  .comparison-table th { background: rgba(108,63,197,0.3); padding: 12px 16px; text-align: left; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+  .comparison-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.93rem; }
+  .comparison-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .tag-ai { background: rgba(59,130,246,0.2); color: #6eb3ff; border-radius: 6px; padding: 2px 8px; font-size: 0.8rem; }
+  .tag-human { background: rgba(46,204,113,0.2); color: var(--success); border-radius: 6px; padding: 2px 8px; font-size: 0.8rem; }
+  .tag-both { background: rgba(245,166,35,0.2); color: var(--accent); border-radius: 6px; padding: 2px 8px; font-size: 0.8rem; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 50px 20px 40px; }
+    .container { padding: 40px 16px; }
+    .meta-row { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav-back">
+  <a href="../index.html">← Back to Course</a>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <span class="progress-label" id="progress-label">0% complete</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="module-badge">Module 01 · Foundation</div>
+  <h1>AI &amp; Tech with a<br><span>Human Touch</span></h1>
+  <p class="tagline">Understanding artificial intelligence — what it is, what it isn't, and why humans will always be the most important part of the equation.</p>
+  <div class="meta-row">
+    <span>⏱️ 90 minutes</span>
+    <span>📊 Beginner – Intermediate</span>
+    <span>🌍 Africa-relevant examples</span>
+    <span>🧠 5 practical exercises</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="section-header">
+    <div class="section-number">01 · Learning Objectives</div>
+    <h2>What You'll Be Able to Do</h2>
+    <p>By the end of this module, you will have moved from curious to confident.</p>
+  </div>
+
+  <div class="card card-accent">
+    <ul class="obj-list">
+      <li>Explain what AI is — and correct the most dangerous myths about it</li>
+      <li>Identify where AI adds value and where human judgment is irreplaceable</li>
+      <li>Use at least 3 practical AI tools relevant to your work today</li>
+      <li>Articulate the role of empathy, creativity, and ethics in AI-powered work</li>
+      <li>Apply the Human-AI Collaboration Framework to your own role</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION 1: WHAT IS AI -->
+  <div class="section-header">
+    <div class="section-number">02 · The Foundation</div>
+    <h2>What AI Actually Is<br>(Not What the Movies Told You)</h2>
+    <p>Let's cut through the noise. Most people operate with one of two dangerous misconceptions about AI.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <span class="stat-number">67%</span>
+      <span class="stat-label">of workers fear AI will take their job — but most fear the wrong thing</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">85M</span>
+      <span class="stat-label">jobs displaced by 2025 — but 97M new roles created (WEF)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">$15.7T</span>
+      <span class="stat-label">AI could add to global GDP by 2030 — Africa needs its share</span>
+    </div>
+  </div>
+
+  <div class="callout callout-warning">
+    <span class="callout-icon">⚠️</span>
+    <div>
+      <h4>The Two Dangerous Myths</h4>
+      <ul>
+        <li><strong>Myth 1: AI is magic.</strong> It knows everything, it's always right, it can replace all human work. → FALSE. AI is a pattern-matching system trained on data. It has no understanding, no values, no conscience.</li>
+        <li><strong>Myth 2: AI is just a fancy search engine.</strong> It's trivial, it's a fad, I don't need to pay attention. → ALSO FALSE. AI is already making decisions about your loan, your medical scan, your job application.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-gold" style="margin-top: 24px;">
+    <h3 style="margin-bottom: 12px;">🎯 The Real Definition</h3>
+    <p><strong>Artificial Intelligence</strong> is the ability of a computer system to perform tasks that would normally require human intelligence — such as recognising patterns, making predictions, translating language, or generating content.</p>
+    <p style="margin-top: 12px; color: var(--muted);">Key word: <em>tasks</em>. Not thinking. Not feeling. Not understanding. <strong>Tasks.</strong></p>
+  </div>
+
+  <div class="section-header" style="margin-top: 48px;">
+    <h2>A Brief, Honest History of AI</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="year">1950s–1980s</div>
+      <h4>The Rule-Based Era</h4>
+      <p>Humans wrote explicit rules ("if this, do that"). Systems were rigid. Brilliant for chess. Useless for real life.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">1990s–2010s</div>
+      <h4>Machine Learning Emerges</h4>
+      <p>Instead of rules, systems learned from data. Feed it 1 million spam emails; it learns what spam looks like. Email filtering transformed overnight.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2012–2022</div>
+      <h4>Deep Learning Revolution</h4>
+      <p>Neural networks — inspired by the human brain — enabled image recognition, voice assistants, translation. AI became part of daily life without most people noticing.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2022–Now</div>
+      <h4>Generative AI &amp; The New Frontier</h4>
+      <p>ChatGPT, Gemini, Claude, Midjourney. AI can now write, code, design, analyse, and converse. This is the moment everyone has to pay attention — especially in Africa.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION 2: HUMAN vs AI -->
+  <div class="section-header">
+    <div class="section-number">03 · The Core Framework</div>
+    <h2>Human Intelligence vs. Artificial Intelligence</h2>
+    <p>This is not a competition. It's a collaboration. But you need to know who's good at what.</p>
+  </div>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>AI</th>
+        <th>Human</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Processing large data volumes</td>
+        <td>✅ Exceptional</td>
+        <td>🟡 Limited</td>
+        <td><span class="tag-ai">AI leads</span></td>
+      </tr>
+      <tr>
+        <td>Empathy &amp; emotional attunement</td>
+        <td>❌ None</td>
+        <td>✅ Essential</td>
+        <td><span class="tag-human">Human only</span></td>
+      </tr>
+      <tr>
+        <td>Recognising patterns in images/text</td>
+        <td>✅ Superhuman</td>
+        <td>🟡 Good</td>
+        <td><span class="tag-ai">AI leads</span></td>
+      </tr>
+      <tr>
+        <td>Moral judgement &amp; values</td>
+        <td>❌ Simulates only</td>
+        <td>✅ Irreplaceable</td>
+        <td><span class="tag-human">Human only</span></td>
+      </tr>
+      <tr>
+        <td>Creative leaps &amp; original ideas</td>
+        <td>🟡 Remixes existing</td>
+        <td>✅ Truly original</td>
+        <td><span class="tag-human">Human leads</span></td>
+      </tr>
+      <tr>
+        <td>24/7 availability &amp; consistency</td>
+        <td>✅ Never tires</td>
+        <td>❌ Needs rest</td>
+        <td><span class="tag-ai">AI leads</span></td>
+      </tr>
+      <tr>
+        <td>Contextual wisdom &amp; lived experience</td>
+        <td>❌ No lived experience</td>
+        <td>✅ Priceless</td>
+        <td><span class="tag-human">Human only</span></td>
+      </tr>
+      <tr>
+        <td>Framing the right question</td>
+        <td>🟡 Needs guidance</td>
+        <td>✅ Critical skill</td>
+        <td><span class="tag-human">Human leads</span></td>
+      </tr>
+      <tr>
+        <td>Adapting to a completely new situation</td>
+        <td>❌ Struggles</td>
+        <td>✅ Core strength</td>
+        <td><span class="tag-human">Human only</span></td>
+      </tr>
+      <tr>
+        <td>Translating strategy into action</td>
+        <td>🟡 Assists</td>
+        <td>✅ Decision-maker</td>
+        <td><span class="tag-both">Collaboration</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pullquote">
+    <blockquote>"AI will not replace humans. But humans who use AI will replace humans who don't."</blockquote>
+    <cite>— The new reality for every professional</cite>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION 3: THE HUMAN TOUCH -->
+  <div class="section-header">
+    <div class="section-number">04 · The Human Advantage</div>
+    <h2>What "The Human Touch" Actually Means</h2>
+    <p>In a world of automation, the specifically human qualities become <em>more</em> valuable, not less.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="concept-card">
+      <div class="concept-icon">❤️</div>
+      <h3>Empathy</h3>
+      <p>Understanding how someone <em>feels</em> — not just what they say. AI can detect sentiment; only humans can truly respond to it with care.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">🔗</div>
+      <h3>Relationships</h3>
+      <p>Trust is built person-to-person. The client who signs the contract does it because they trust <em>you</em> — not your chatbot.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">🎨</div>
+      <h3>Originality</h3>
+      <p>AI recombines what exists. Humans imagine what doesn't exist yet. The brief, the vision, the "what if" — that's yours.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">⚖️</div>
+      <h3>Ethical Judgement</h3>
+      <p>When the stakes are human — a medical decision, a legal ruling, a child's education — humans must remain accountable. Always.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">🌍</div>
+      <h3>Cultural Intelligence</h3>
+      <p>AI is trained mostly on Western, English-language data. African context, local languages, community dynamics — this is your expertise, not AI's.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">🏃</div>
+      <h3>Adaptive Leadership</h3>
+      <p>When the plan falls apart — and it will — humans read the room, pivot, inspire, and lead through uncertainty. No model can do that.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-insight">
+    <span class="callout-icon">💡</span>
+    <div>
+      <h4>Africa-Specific Insight</h4>
+      <p>Most AI systems are trained on data from North America, Europe, and East Asia. This means they carry embedded biases and blind spots when applied to African contexts — languages, healthcare patterns, financial behaviours, cultural norms. <strong>The person who understands African reality and knows how to work with AI has a significant competitive advantage.</strong></p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION 4: PRACTICAL TOOLS -->
+  <div class="section-header">
+    <div class="section-number">05 · Practical Tools</div>
+    <h2>AI Tools You Can Use Today</h2>
+    <p>No PhD required. These tools are accessible, affordable, and transformative if you apply them with intention.</p>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-emoji">🤖</div>
+    <div>
+      <h4>ChatGPT / Claude / Gemini — Conversational AI</h4>
+      <p>Write, analyse, summarise, brainstorm, draft emails, build lesson plans, create proposals. Think of it as an intelligent assistant who never sleeps.</p>
+      <div class="use-case">🎯 Educator use: Build a full 5-day lesson plan in 8 minutes. Corporate use: Draft 10 versions of a pitch deck intro.</div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-emoji">🎨</div>
+    <div>
+      <h4>Canva AI / Adobe Firefly — Visual Creation</h4>
+      <p>Generate images, design social posts, create presentations — with AI-assisted design. No designer needed for first drafts.</p>
+      <div class="use-case">🎯 Use case: Generate branded workshop materials in 20 minutes vs. 3 days.</div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-emoji">📊</div>
+    <div>
+      <h4>Microsoft Copilot / Google Workspace AI</h4>
+      <p>Built into the tools you already use. Summarise long email threads, generate Excel formulas, draft presentations from bullet points.</p>
+      <div class="use-case">🎯 Use case: Summarise a 60-page government report into a 1-page brief in 2 minutes.</div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-emoji">🎙️</div>
+    <div>
+      <h4>Otter.ai / Fireflies — Meeting Intelligence</h4>
+      <p>Automatically transcribe, summarise, and extract action items from every meeting. Never lose a key decision again.</p>
+      <div class="use-case">🎯 Use case: Share a meeting summary with stakeholders within 5 minutes of ending the call.</div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-emoji">📱</div>
+    <div>
+      <h4>WhatsApp AI Bots / Local Language AI</h4>
+      <p>Africa-specific tools leveraging WhatsApp's near-universal penetration. Customer service, health information, financial advice — meeting people where they are.</p>
+      <div class="use-case">🎯 Africa use case: USSD + AI for rural communities without smartphones. This is where the real impact is.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION 5: THE FRAMEWORK -->
+  <div class="section-header">
+    <div class="section-number">06 · The Framework</div>
+    <h2>The Human-AI Collaboration Model</h2>
+    <p>A practical framework for deciding how to work with AI in any situation.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-accent">
+      <h3 style="color: var(--accent); margin-bottom: 12px;">🤖 Let AI Do This</h3>
+      <ul style="padding-left: 18px; color: var(--muted); font-size: 0.93rem;">
+        <li>Research first drafts &amp; summaries</li>
+        <li>Data analysis &amp; pattern recognition</li>
+        <li>Repetitive document generation</li>
+        <li>Translation &amp; transcription</li>
+        <li>Scheduling &amp; calendar management</li>
+        <li>24/7 FAQ responses</li>
+        <li>Formatting &amp; proofreading</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h3 style="color: var(--success); margin-bottom: 12px;">🧠 You Must Do This</h3>
+      <ul style="padding-left: 18px; color: var(--muted); font-size: 0.93rem;">
+        <li>Verify AI outputs for accuracy</li>
+        <li>Make value-laden decisions</li>
+        <li>Maintain client relationships</li>
+        <li>Lead, inspire &amp; mentor teams</li>
+        <li>Define the strategy &amp; vision</li>
+        <li>Take ethical responsibility</li>
+        <li>Apply local cultural context</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-action">
+    <span class="callout-icon">⚡</span>
+    <div>
+      <h4>The Golden Rule of Human-AI Collaboration</h4>
+      <p><strong>AI accelerates. Humans decide.</strong> Use AI to do faster; use your brain to decide what's right. Never outsource judgement to a machine — especially when the outcome affects people.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EXERCISE 1 -->
+  <div class="exercise">
+    <div class="exercise-badge">Exercise 01</div>
+    <h3>🔍 The AI Audit — Your Own Work</h3>
+    <p>This exercise takes 10 minutes and could save you 10 hours a week.</p>
+    <ol>
+      <li>Write down <strong>5 tasks you do regularly</strong> in your job (examples: writing emails, analysing reports, making slides, answering the same questions).</li>
+      <li>For each task, ask: <em>"Could an AI do a first draft of this, so I can review and refine it?"</em></li>
+      <li>Pick the top 2 tasks where AI could save you the most time.</li>
+      <li>This week: try using ChatGPT or Claude for one of those tasks. Note the result.</li>
+    </ol>
+    <textarea placeholder="Write your 5 tasks here, then mark which ones AI could help with..."></textarea>
+    <br>
+    <button class="btn" onclick="this.textContent='✅ Saved! Revisit this after trying AI this week.'">Save My Reflection</button>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="exercise">
+    <div class="exercise-badge">Exercise 02 · Group Activity</div>
+    <h3>💬 The Human-AI Debate</h3>
+    <p>For trainers: split participants into two groups. Give each group 5 minutes to prepare, then debate for 10 minutes.</p>
+    <ul>
+      <li><strong>Group A:</strong> "AI will destroy more jobs than it creates in Africa in the next 10 years."</li>
+      <li><strong>Group B:</strong> "AI will create more opportunity in Africa than anywhere else in the world."</li>
+    </ul>
+    <p style="margin-top: 12px; font-style: italic; color: var(--muted);">After the debate: discuss what both sides got right, and what the evidence says. Key insight: <em>it depends entirely on whether Africans lead with AI or lag behind it.</em></p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- QUIZ -->
+  <div class="quiz-section">
+    <h3>🧠 Knowledge Check</h3>
+    <p class="quiz-intro">Test your understanding before moving to the next section. Take your time — this is for learning, not grading.</p>
+
+    <div class="question" id="q1">
+      <h4>1. Which of the following best describes what AI actually does?</h4>
+      <div class="options">
+        <button class="option" onclick="checkAnswer(this, false, 'q1', 'AI does not think or understand — it processes patterns in data it was trained on. It has no awareness.')">Thinks and understands like a human brain</button>
+        <button class="option" onclick="checkAnswer(this, true, 'q1', '✅ Correct! AI is a pattern-matching system. It finds statistical patterns in data and uses them to generate outputs. No understanding is involved.')">Finds patterns in data to generate outputs</button>
+        <button class="option" onclick="checkAnswer(this, false, 'q1', 'AI cannot learn new concepts by watching humans the way a child does. It requires large amounts of training data and a training process.')">Learns by watching humans, like a child</button>
+        <button class="option" onclick="checkAnswer(this, false, 'q1', 'AI does not have consciousness. It produces text or outputs that can seem conscious, but this is pattern generation, not awareness.')">Is conscious and aware of its outputs</button>
+      </div>
+      <div class="feedback" id="feedback-q1"></div>
+    </div>
+
+    <div class="question" id="q2">
+      <h4>2. A doctor uses AI to analyse 10,000 patient scans and identify early cancer indicators. Who should make the final treatment decision?</h4>
+      <div class="options">
+        <button class="option" onclick="checkAnswer(this, false, 'q2', 'The AI system can provide powerful analysis and surface patterns, but it cannot account for the full human context, patient values, or take ethical responsibility.')">The AI — it analysed more data than any human could</button>
+        <button class="option" onclick="checkAnswer(this, true, 'q2', '✅ Exactly right. The AI accelerates and surfaces insights. The doctor decides — bringing empathy, contextual judgement, ethical responsibility, and the patient relationship that AI cannot replicate.')">The doctor — using AI analysis as one key input</button>
+        <button class="option" onclick="checkAnswer(this, false, 'q2', 'A split decision introduces unnecessary delay and diffusion of responsibility. One accountable human should make the call, informed by AI analysis.')">Both equally — a 50/50 split decision</button>
+        <button class="option" onclick="checkAnswer(this, false, 'q2', 'AI analysis of scans is often more accurate than unassisted human review. Ignoring it would waste a valuable tool.')">Neither — AI analysis is too unreliable to use</button>
+      </div>
+      <div class="feedback" id="feedback-q2"></div>
+    </div>
+
+    <div class="question" id="q3">
+      <h4>3. Why does Africa have a unique advantage in the AI era?</h4>
+      <div class="options">
+        <button class="option" onclick="checkAnswer(this, false, 'q3', 'This is not specific to Africa and does not represent a unique advantage.')">More universities are teaching AI than anywhere else</button>
+        <button class="option" onclick="checkAnswer(this, false, 'q3', 'Africa does not currently lead in AI infrastructure investment.')">AI infrastructure investment is highest on the continent</button>
+        <button class="option" onclick="checkAnswer(this, true, 'q3', '✅ Correct! Most AI is trained on Western data and misses African context entirely. Africans who understand both AI and their own context can solve problems that outsiders cannot — and build solutions the world needs.')">African context, culture and challenges are underrepresented in AI — creating a massive opportunity for those who know both worlds</button>
+        <button class="option" onclick="checkAnswer(this, false, 'q3', 'Disruption is a challenge, not an advantage. The advantage comes from responding to it strategically.')">AI will disrupt Africa less than other regions</button>
+      </div>
+      <div class="feedback" id="feedback-q3"></div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY -->
+  <div class="section-header">
+    <div class="section-number">07 · Real World</div>
+    <h2>Case Study: AI with a Human Touch in Action</h2>
+  </div>
+
+  <div class="card card-gold">
+    <h3 style="margin-bottom: 12px;">🏥 Reaching Rural Botswana: AI + Community Health Workers</h3>
+    <p>In Botswana's remote areas, a community health worker visits a village. She has an AI-powered diagnostic support tool on her phone. The AI analyses symptoms she inputs and suggests three possible conditions with confidence scores and referral urgency ratings.</p>
+    <p style="margin-top: 12px; color: var(--muted);">But here's what the AI cannot do:</p>
+    <ul style="margin-top: 8px; padding-left: 20px; color: var(--muted); font-size: 0.93rem;">
+      <li>Notice that the patient looks frightened and needs reassurance first</li>
+      <li>Remember that this patient's family has a history the AI wasn't trained on</li>
+      <li>Navigate the cultural sensitivity around discussing certain diagnoses</li>
+      <li>Make the call to drive 80km to the clinic at 10pm because something "felt wrong"</li>
+    </ul>
+    <p style="margin-top: 12px;"><strong>The human touch is not a supplement to the AI. It is what makes the AI useful at all.</strong></p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- KEY TAKEAWAYS -->
+  <div class="section-header">
+    <div class="section-number">08 · Summary</div>
+    <h2>The 5 Things to Remember</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-accent">
+      <h3 style="color: var(--accent); font-size: 1rem; margin-bottom: 8px;">1. AI is a tool, not a being</h3>
+      <p style="font-size: 0.9rem; color: var(--muted);">It processes patterns. It does not think, feel, or understand. Never forget this — it's the foundation of using AI responsibly.</p>
+    </div>
+    <div class="card card-accent">
+      <h3 style="color: var(--accent); font-size: 1rem; margin-bottom: 8px;">2. Human qualities become MORE valuable</h3>
+      <p style="font-size: 0.9rem; color: var(--muted);">Empathy, judgement, creativity, relationships — these are irreplaceable. Develop them deliberately.</p>
+    </div>
+    <div class="card card-accent">
+      <h3 style="color: var(--accent); font-size: 1rem; margin-bottom: 8px;">3. AI accelerates. Humans decide.</h3>
+      <p style="font-size: 0.9rem; color: var(--muted);">Use AI to work faster and smarter. But every significant decision requires a human who is accountable for it.</p>
+    </div>
+    <div class="card card-accent">
+      <h3 style="color: var(--accent); font-size: 1rem; margin-bottom: 8px;">4. Africa's context is your competitive advantage</h3>
+      <p style="font-size: 0.9rem; color: var(--muted);">AI systems don't understand African culture, languages, and challenges. You do. That combination is powerful.</p>
+    </div>
+  </div>
+
+  <div class="card card-gold" style="text-align: center; padding: 32px;">
+    <h3 style="font-size: 1.3rem; margin-bottom: 8px;">5. The best AI future requires the best humans</h3>
+    <p style="color: var(--muted);">The goal is not to be replaced by AI. The goal is to become the kind of person who uses AI better than anyone else — while staying deeply, irreducibly human.</p>
+  </div>
+
+  <!-- NEXT MODULE -->
+  <div class="next-module">
+    <h3>Ready for the Most Important Module?</h3>
+    <p>Next: The skills AI can never replicate — and why they're worth more now than ever before.</p>
+    <a href="02-soft-skills.html" class="btn-white">→ Module 02: Soft Skills — The Superpower AI Can't Replace</a>
+  </div>
+
+</div>
+
+<script>
+  // Progress tracking
+  function updateProgress() {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const current = window.scrollY;
+    const pct = Math.round((current / total) * 100);
+    document.getElementById('progress').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = pct + '% complete';
+  }
+  window.addEventListener('scroll', updateProgress);
+
+  // Quiz logic
+  function checkAnswer(btn, isCorrect, questionId, explanation) {
+    const question = document.getElementById(questionId);
+    const allOptions = question.querySelectorAll('.option');
+    const feedback = document.getElementById('feedback-' + questionId);
+
+    allOptions.forEach(opt => opt.disabled = true);
+
+    if (isCorrect) {
+      btn.classList.add('correct');
+      feedback.className = 'feedback show correct';
+    } else {
+      btn.classList.add('incorrect');
+      feedback.className = 'feedback show incorrect';
+    }
+    feedback.textContent = explanation;
+  }
+</script>
+</body>
+</html>

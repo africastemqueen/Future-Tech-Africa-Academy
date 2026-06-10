@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 01 — The AI Mindset Reset | APEX AI Masterclass</title>
+<style>
+  :root{--primary:#7C5CFC;--accent:#F5C842;--dark:#080812;--mid:#10102A;--card:#181830;--text:#EEF0FF;--muted:#8888BB;--success:#00E676;--danger:#FF5252;--warning:#FFB74D;--gradient:linear-gradient(135deg,#7C5CFC,#00D9C8)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7}
+  .nav-back{background:var(--mid);padding:14px 40px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .nav-back a{color:var(--accent);text-decoration:none;font-weight:600;font-size:0.9rem}
+  .progress-bar{flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;max-width:180px}
+  .progress-fill{height:100%;border-radius:3px;background:var(--accent);width:0%;transition:width 0.5s}
+  .progress-label{font-size:0.78rem;color:var(--muted)}
+  .hero{background:var(--gradient);padding:80px 40px 60px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z'/%3E%3C/g%3E%3C/svg%3E")}
+  .mod-badge{background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.25);border-radius:50px;display:inline-block;padding:6px 20px;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+  .hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;margin-bottom:14px;line-height:1.15}
+  .hero h1 span{color:#0D0D1A}
+  .hero p{font-size:1.1rem;opacity:0.9;max-width:580px;margin:0 auto 28px}
+  .meta{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-size:0.88rem;opacity:0.85}
+  .container{max-width:860px;margin:0 auto;padding:60px 24px}
+  .sec-num{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .sec-title{font-size:1.85rem;font-weight:900;margin-bottom:12px}
+  .sec-sub{color:var(--muted);font-size:1rem;margin-bottom:0}
+  .sec-header{margin-bottom:36px}
+  .card{background:var(--card);border-radius:16px;padding:26px;margin-bottom:18px;border:1px solid rgba(255,255,255,0.06)}
+  .card-purple{border-left:4px solid var(--primary)}
+  .card-gold{border-left:4px solid var(--accent)}
+  .card-green{border-left:4px solid var(--success)}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin:22px 0}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:22px 0}
+  .myth-card{background:var(--card);border-radius:14px;padding:24px;border:1px solid rgba(255,255,255,0.06)}
+  .myth-card .myth-label{font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:12px}
+  .myth{background:rgba(255,82,82,0.12);color:#FF7070;border:1px solid rgba(255,82,82,0.2)}
+  .truth{background:rgba(0,230,118,0.1);color:var(--success);border:1px solid rgba(0,230,118,0.25)}
+  .myth-card h3{font-size:1rem;font-weight:800;margin-bottom:8px}
+  .myth-card p{font-size:0.88rem;color:var(--muted)}
+  .callout{border-radius:12px;padding:20px 24px;margin:22px 0;display:flex;gap:14px;align-items:flex-start}
+  .co-purple{background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.25)}
+  .co-gold{background:rgba(245,200,66,0.08);border:1px solid rgba(245,200,66,0.25)}
+  .co-green{background:rgba(0,230,118,0.08);border:1px solid rgba(0,230,118,0.25)}
+  .co-red{background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.25)}
+  .ci{font-size:1.4rem;flex-shrink:0}
+  .callout h4{font-weight:700;margin-bottom:4px}
+  .callout p,.callout ul{font-size:0.92rem;color:var(--muted)}
+  .callout ul{padding-left:16px}
+  .callout ul li{margin-bottom:4px}
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:28px 0}
+  .stat{background:var(--card);border-radius:12px;padding:22px;text-align:center;border:1px solid rgba(255,255,255,0.06)}
+  .stat-n{font-size:2.2rem;font-weight:900;color:var(--accent);display:block}
+  .stat-l{font-size:0.82rem;color:var(--muted);margin-top:3px}
+  .pull{background:var(--gradient);border-radius:16px;padding:28px;text-align:center;margin:36px 0}
+  .pull blockquote{font-size:1.3rem;font-weight:800;font-style:italic;line-height:1.4;margin-bottom:10px}
+  .pull cite{font-size:0.88rem;opacity:0.8}
+  .quiz{background:var(--mid);border-radius:20px;padding:32px;margin:44px 0;border:1px solid rgba(124,92,252,0.25)}
+  .quiz h3{font-size:1.35rem;font-weight:800;color:var(--accent);margin-bottom:6px}
+  .quiz-sub{color:var(--muted);margin-bottom:26px;font-size:0.92rem}
+  .q{margin-bottom:28px}
+  .q h4{font-size:0.97rem;font-weight:700;margin-bottom:14px}
+  .opts{display:flex;flex-direction:column;gap:9px}
+  .opt{background:var(--card);border:2px solid rgba(255,255,255,0.07);border-radius:10px;padding:13px 17px;cursor:pointer;font-size:0.92rem;text-align:left;color:var(--text);transition:all 0.2s}
+  .opt:hover{border-color:var(--primary);background:rgba(124,92,252,0.1)}
+  .opt.correct{border-color:var(--success)!important;background:rgba(0,230,118,0.12)!important}
+  .opt.incorrect{border-color:var(--danger)!important;background:rgba(255,82,82,0.1)!important}
+  .fb{margin-top:10px;padding:11px 15px;border-radius:8px;font-size:0.88rem;display:none}
+  .fb.show{display:block}
+  .fb.correct{background:rgba(0,230,118,0.12);color:var(--success)}
+  .fb.incorrect{background:rgba(255,82,82,0.1);color:#ff8080}
+  .exercise{background:var(--mid);border-radius:16px;padding:28px;margin:28px 0;border:2px dashed rgba(124,92,252,0.3)}
+  .ex-badge{background:var(--primary);color:white;border-radius:50px;display:inline-block;padding:4px 14px;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+  .exercise h3{font-size:1.15rem;font-weight:800;margin-bottom:10px}
+  .exercise p,.exercise ol,.exercise ul{color:var(--muted);font-size:0.93rem}
+  .exercise ol,.exercise ul{padding-left:18px;margin-top:8px}
+  .exercise li{margin-bottom:7px}
+  .exercise textarea{width:100%;background:var(--card);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:13px;color:var(--text);font-size:0.92rem;margin-top:14px;resize:vertical;min-height:90px;font-family:inherit}
+  .exercise textarea:focus{outline:none;border-color:var(--primary)}
+  .btn{background:var(--primary);color:white;border:none;border-radius:10px;padding:11px 22px;cursor:pointer;font-size:0.92rem;font-weight:700;transition:opacity 0.2s;margin-top:10px}
+  .btn:hover{opacity:0.85}
+  .divider{border:none;border-top:1px solid rgba(255,255,255,0.07);margin:44px 0}
+  .mindset-meter{background:var(--card);border-radius:14px;padding:24px;margin:24px 0}
+  .mm-row{margin-bottom:14px}
+  .mm-label{display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:5px}
+  .mm-bar{height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden}
+  .mm-fill{height:100%;border-radius:4px;background:var(--gradient)}
+  .next-mod{background:var(--gradient);border-radius:20px;padding:36px;text-align:center;margin-top:56px}
+  .next-mod h3{font-size:1.45rem;font-weight:800;margin-bottom:8px}
+  .next-mod p{opacity:0.88;margin-bottom:22px}
+  .btn-white{background:white;color:#7C5CFC;border-radius:12px;padding:13px 28px;font-weight:800;text-decoration:none;display:inline-block;transition:transform 0.2s}
+  .btn-white:hover{transform:scale(1.04)}
+  .obj-list{list-style:none;padding:0}
+  .obj-list li{padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:flex-start;gap:10px;font-size:0.93rem}
+  .obj-list li::before{content:'✓';color:var(--success);font-weight:900;flex-shrink:0}
+  .video-slot{background:var(--card);border-radius:14px;border:2px dashed rgba(124,92,252,0.3);padding:32px;text-align:center;margin:24px 0}
+  .video-slot .play-icon{font-size:3rem;margin-bottom:12px;opacity:0.5}
+  .video-slot p{color:var(--muted);font-size:0.88rem}
+  .video-slot code{background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:4px;font-size:0.8rem}
+  @media(max-width:600px){.hero{padding:50px 20px 40px}.container{padding:40px 16px}}
+</style>
+</head>
+<body>
+
+<nav class="nav-back">
+  <a href="../index.html">← Masterclass</a>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <span class="progress-label" id="prog-label">0% complete</span>
+</nav>
+
+<div class="hero">
+  <div class="mod-badge">Module 01 · Foundation · APEX AI Masterclass</div>
+  <h1>The AI <span>Mindset</span> Reset</h1>
+  <p>Your relationship with AI will determine your career trajectory for the next 30 years. Let's make sure it starts right.</p>
+  <div class="meta">
+    <span>⏱️ 90 minutes</span><span>🧠 Foundation Module</span><span>🌍 Universal Application</span><span>🎯 Includes Readiness Audit</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- VIDEO INTRO SLOT -->
+  <div class="video-slot" style="margin-top:20px">
+    <div class="play-icon">▶️</div>
+    <p><strong>Instructor Introduction Video</strong> — Record your intro and paste the YouTube/Vimeo embed code here</p>
+    <p style="margin-top:8px"><code>&lt;!-- PASTE VIDEO EMBED HERE: e.g. &lt;iframe src="https://youtube.com/embed/YOUR_ID"...&gt; --&gt;</code></p>
+  </div>
+
+  <div class="sec-header" style="margin-top:48px">
+    <div class="sec-num">01 · Learning Objectives</div>
+    <h2 class="sec-title">What Changes After This Module</h2>
+  </div>
+  <div class="card card-purple">
+    <ul class="obj-list">
+      <li>Identify the exact fear or limiting belief that's holding you back from AI adoption</li>
+      <li>Replace the 5 most dangerous myths about AI with accurate, empowering beliefs</li>
+      <li>Complete your personal AI Readiness Audit — knowing exactly where you stand</li>
+      <li>Articulate why <em>you specifically</em> have more to gain from AI than to fear</li>
+      <li>Commit to a specific 30-day AI fluency challenge with measurable milestones</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- THE FEAR -->
+  <div class="sec-header">
+    <div class="sec-num">02 · The Honest Starting Point</div>
+    <h2 class="sec-title">Let's Name the Fear</h2>
+    <p class="sec-sub">You cannot overcome a fear you haven't named. Most professionals have one of these — which is yours?</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><span class="stat-n">67%</span><span class="stat-l">of workers fear AI will take their job</span></div>
+    <div class="stat"><span class="stat-n">43%</span><span class="stat-l">feel embarrassed they don't understand AI</span></div>
+    <div class="stat"><span class="stat-n">71%</span><span class="stat-l">have never used a professional AI tool</span></div>
+  </div>
+
+  <div class="grid3" style="margin-top:8px">
+    <div class="card" style="text-align:center;border-top:3px solid #FF5252">
+      <div style="font-size:2rem;margin-bottom:10px">😨</div>
+      <div style="font-weight:800;margin-bottom:6px">Fear of Replacement</div>
+      <div style="font-size:0.85rem;color:var(--muted)">"AI is going to take my job"</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #FFB74D">
+      <div style="font-size:2rem;margin-bottom:10px">😕</div>
+      <div style="font-weight:800;margin-bottom:6px">Fear of Incompetence</div>
+      <div style="font-size:0.85rem;color:var(--muted)">"I'm not technical enough for this"</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #AB47BC">
+      <div style="font-size:2rem;margin-bottom:10px">😶</div>
+      <div style="font-weight:800;margin-bottom:6px">Fear of Irrelevance</div>
+      <div style="font-size:0.85rem;color:var(--muted)">"Everyone else already knows this"</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #42A5F5">
+      <div style="font-size:2rem;margin-bottom:10px">🤯</div>
+      <div style="font-weight:800;margin-bottom:6px">Fear of Overwhelm</div>
+      <div style="font-size:0.85rem;color:var(--muted)">"There's too much to learn"</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #66BB6A">
+      <div style="font-size:2rem;margin-bottom:10px">😤</div>
+      <div style="font-weight:800;margin-bottom:6px">Resistance</div>
+      <div style="font-size:0.85rem;color:var(--muted)">"I don't need AI — I'm good at my job"</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid #F5C842">
+      <div style="font-size:2rem;margin-bottom:10px">🌫️</div>
+      <div style="font-weight:800;margin-bottom:6px">Fear of the Unknown</div>
+      <div style="font-size:0.85rem;color:var(--muted)">"I don't know what I don't know"</div>
+    </div>
+  </div>
+
+  <div class="callout co-purple">
+    <span class="ci">💡</span>
+    <div>
+      <h4>The Truth About All These Fears</h4>
+      <p>Every single one of them is valid. Every single one of them has been felt by CEOs, professors, doctors, and government ministers who are now leading AI adoption in their sectors. The fear is not a sign that you're behind. It's a sign that you understand that something important is happening — and you haven't yet found your footing. <strong>That's exactly what this module is for.</strong></p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- THE 5 MYTHS -->
+  <div class="sec-header">
+    <div class="sec-num">03 · Myth Demolition</div>
+    <h2 class="sec-title">5 Myths That Are Holding You Back Right Now</h2>
+    <p class="sec-sub">Every one of these beliefs is common, understandable, and wrong. Replace each with the truth.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="myth-card">
+      <span class="myth-label myth">❌ MYTH 01</span>
+      <h3>"AI will take my job"</h3>
+      <p>The most common fear, and the most misframed. AI doesn't take jobs — it eliminates tasks. The jobs that survive are the ones that add what AI cannot: judgement, relationships, creativity, accountability.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-label truth">✅ TRUTH 01</span>
+      <h3>"AI will change my job — and I can shape how"</h3>
+      <p>The professionals who will thrive are those who identify what AI handles, take it off their plate, and invest that recovered time into higher-value human work. You are not being replaced. You are being <strong>upgraded</strong> — if you choose to be.</p>
+    </div>
+
+    <div class="myth-card">
+      <span class="myth-label myth">❌ MYTH 02</span>
+      <h3>"You need to be technical to use AI"</h3>
+      <p>This was true in 2015. Today's AI tools are designed for conversation — you type what you want in plain language and it responds. If you can send a WhatsApp message, you can use AI.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-label truth">✅ TRUTH 02</span>
+      <h3>"You need curiosity, not a computer science degree"</h3>
+      <p>The barrier is no longer technical. It is psychological. The people currently winning with AI are not engineers — they are curious professionals who started experimenting and didn't stop. The tools are already simple enough. <strong>The question is whether you'll start.</strong></p>
+    </div>
+
+    <div class="myth-card">
+      <span class="myth-label myth">❌ MYTH 03</span>
+      <h3>"AI is always right"</h3>
+      <p>This is the most dangerous myth. AI "hallucinates" — it generates plausible-sounding information that is factually wrong, with complete confidence. Over-trusting AI without verification leads to embarrassing and sometimes costly errors.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-label truth">✅ TRUTH 03</span>
+      <h3>"AI is a powerful first draft — you are the editor"</h3>
+      <p>Use AI to generate, research, draft, and brainstorm. Then apply your expertise and critical thinking to verify and refine. Your professional judgement is not replaced — it is elevated to quality control. <strong>You are the last human in the loop. Act like it matters.</strong></p>
+    </div>
+
+    <div class="myth-card">
+      <span class="myth-label myth">❌ MYTH 04</span>
+      <h3>"It's too late — everyone already knows AI"</h3>
+      <p>The reality: the vast majority of professionals globally have no serious AI skills. Africa specifically has an enormous skills gap that represents either a crisis or an opportunity depending on how you respond to it.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-label truth">✅ TRUTH 04</span>
+      <h3>"The gap is wide open — and you're filling it right now"</h3>
+      <p>The professional who finishes this masterclass will be in the top few percent of AI-literate professionals in their region. The gap isn't closing — it's widening. <strong>Starting today puts you ahead of where you were yesterday, and ahead of the majority who still haven't started.</strong></p>
+    </div>
+
+    <div class="myth-card">
+      <span class="myth-label myth">❌ MYTH 05</span>
+      <h3>"AI is just for big companies or Silicon Valley"</h3>
+      <p>ChatGPT is free. Claude is free. Gemini is free. Canva AI is free at the basic tier. The tools that were exclusively available to companies with million-dollar tech budgets are now available to a secondary school teacher in Francistown on a smartphone.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-label truth">✅ TRUTH 05</span>
+      <h3>"AI is the great equaliser — if you use it"</h3>
+      <p>This is the first time in history that a small business owner in Gaborone has access to the same AI productivity tools as a Fortune 500 company. That is an extraordinary equalisation of access. <strong>The only question is whether you'll use it.</strong></p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- THE GROWTH MINDSET -->
+  <div class="sec-header">
+    <div class="sec-num">04 · The Foundation</div>
+    <h2 class="sec-title">The AI Growth Mindset — What It Actually Looks Like</h2>
+  </div>
+
+  <div class="pull">
+    <blockquote>"You don't need to understand how the engine works to drive the car. But you do need to know where you're going."</blockquote>
+    <cite>— The right relationship with AI tools</cite>
+  </div>
+
+  <div class="grid2">
+    <div class="card" style="border-left:4px solid #FF5252">
+      <h3 style="color:#FF7070;margin-bottom:14px">❌ Fixed AI Mindset</h3>
+      <ul style="padding-left:16px;color:var(--muted);font-size:0.9rem;display:flex;flex-direction:column;gap:8px">
+        <li>"I tried it once, it didn't work"</li>
+        <li>"AI can't understand my specific context"</li>
+        <li>"I'll wait until it's better / more established"</li>
+        <li>"My industry is different"</li>
+        <li>"I'm too senior to be learning new tools"</li>
+        <li>"What if I do it wrong?"</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h3 style="color:var(--success);margin-bottom:14px">✅ Growth AI Mindset</h3>
+      <ul style="padding-left:16px;color:var(--muted);font-size:0.9rem;display:flex;flex-direction:column;gap:8px">
+        <li>"I tried it once, let me refine my approach"</li>
+        <li>"Let me teach AI my context and see what happens"</li>
+        <li>"I'll start now and adapt as it evolves"</li>
+        <li>"What could this change in my industry?"</li>
+        <li>"The best leaders are always learning"</li>
+        <li>"What's the worst that can happen from experimenting?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout co-gold">
+    <span class="ci">🌍</span>
+    <div>
+      <h4>The African Professional's Unique Position</h4>
+      <p>Here is what most global AI educators won't tell you: Africa is not behind in this race. Africa is at the starting line with everyone else — but with a distinct advantage. You understand problems, contexts, and communities that the Silicon Valley engineers who built these tools have never encountered. The AI tools are available to you. The problems worth solving are all around you. The combination is extraordinarily powerful. <strong>That is not a consolation prize. That is a genuine strategic advantage.</strong></p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- READINESS AUDIT -->
+  <div class="sec-header">
+    <div class="sec-num">05 · Your Starting Point</div>
+    <h2 class="sec-title">The AI Readiness Audit</h2>
+    <p class="sec-sub">Honest self-assessment. No judgment. This is your baseline — revisit it in 30 days.</p>
+  </div>
+
+  <div id="audit" style="margin:28px 0">
+    <div style="font-size:0.88rem;color:var(--muted);margin-bottom:20px">Rate yourself honestly: 1 = Never / Not at all · 3 = Sometimes / Partially · 5 = Regularly / Fully</div>
+
+    <div id="audit-rows"></div>
+
+    <div id="audit-result" style="background:var(--card);border-radius:12px;padding:20px 24px;margin-top:16px;display:none">
+      <div style="font-size:1.6rem;font-weight:900;color:var(--accent)" id="audit-score"></div>
+      <div style="font-weight:700;margin-bottom:6px" id="audit-level"></div>
+      <div style="font-size:0.88rem;color:var(--muted)" id="audit-desc"></div>
+    </div>
+  </div>
+
+  <!-- EXERCISES -->
+  <div class="exercise">
+    <div class="ex-badge">Exercise 01 · Individual</div>
+    <h3>🎯 The One Fear, One Action Exercise</h3>
+    <p>The research on behaviour change is clear: naming a specific fear and committing to a single concrete action is more effective than general motivation.</p>
+    <ol>
+      <li>Write your single biggest fear about AI in one sentence. Be specific and honest.</li>
+      <li>Below it, write the single action — one thing, this week — that would directly reduce that fear.</li>
+      <li>Tell one person about your commitment. Accountability doubles follow-through.</li>
+    </ol>
+    <textarea placeholder="My biggest AI fear is:
+
+One action I'll take this week to face it:
+
+The person I'll tell:"></textarea>
+    <br><button class="btn" onclick="this.textContent='✅ Commitment saved. Check back in 7 days.'">Save My Commitment</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-badge">Exercise 02 · 10 Minutes Right Now</div>
+    <h3>💬 Your First Conversation with AI</h3>
+    <p>If you have never used ChatGPT, Claude, or Gemini — do this before moving to Module 02.</p>
+    <ol>
+      <li>Go to <strong>chat.openai.com</strong> or <strong>claude.ai</strong> (free, no credit card required)</li>
+      <li>Type: <em>"I'm a [your profession] in [your country]. Give me 5 ways I could use AI in my work this week. Be specific and practical."</em></li>
+      <li>Read the response. Notice what surprises you. Notice what's wrong or irrelevant.</li>
+      <li>Type a follow-up: <em>"The third suggestion doesn't apply to my context because [reason]. Give me a better alternative."</em></li>
+      <li>Notice that you just had a professional conversation with an AI. That's prompting. You're already doing it.</li>
+    </ol>
+    <textarea placeholder="What surprised me about the response:
+
+What was irrelevant or wrong:
+
+What I want to try next:"></textarea>
+    <br><button class="btn" onclick="this.textContent='✅ First AI conversation documented!'">Save Reflection</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-badge">Exercise 03 · Group · 30 Minutes</div>
+    <h3>🎭 The Fear Parade</h3>
+    <p>For workshop facilitators. Most powerful exercise in this module.</p>
+    <ol>
+      <li>Each participant writes their biggest AI fear on a sticky note (anonymous).</li>
+      <li>Collect all notes. Read them aloud one by one.</li>
+      <li>For each fear, the group calls out: <em>"Me too!"</em> if they share it.</li>
+      <li>After all fears are named: facilitator asks — <em>"Now that you can see everyone in this room shares these fears, what changes?"</em></li>
+      <li>Key insight: <strong>normalising the fear removes the shame. Removing the shame is the first step to action.</strong></li>
+    </ol>
+    <div class="callout co-green" style="margin-top:16px">
+      <span class="ci">💡</span>
+      <div><p>In 8 years of running workshops, this exercise consistently produces the biggest shift in the room. Isolation amplifies fear. Community dissolves it. You are not alone in this — and now everyone in the room knows it.</p></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- QUIZ -->
+  <div class="quiz">
+    <h3>🧠 Mindset Check</h3>
+    <p class="quiz-sub">These questions test whether the mindset shift has actually landed — not just the information.</p>
+
+    <div class="q" id="q1">
+      <h4>1. A colleague says: "I'm not using AI because I don't want to look like I can't do my job myself." What's the most accurate response?</h4>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false,'q1','This validates the fixed mindset. Using AI is not a sign of inadequacy — it\'s a sign of professional evolution.')">They have a point — it could undermine your credibility</button>
+        <button class="opt" onclick="ans(this,false,'q1','True but misses the deeper point. The mindset issue is the belief that using tools signals weakness.')">They should use AI secretly so others don\'t know</button>
+        <button class="opt" onclick="ans(this,true,'q1','✅ Correct. The mindset barrier here is the belief that using tools signals incompetence — when in fact every professional uses the best available tools. A surgeon doesn\'t look weak for using the latest medical equipment. Neither does a professional who uses AI.')">This is a fixed mindset belief. Using the best available tools IS professional excellence — not a sign of weakness.</button>
+        <button class="opt" onclick="ans(this,false,'q1','Forcing someone to use AI before they\'ve dealt with the underlying mindset rarely works and often increases resistance.')">Just make them use AI and they\'ll see for themselves</button>
+      </div>
+      <div class="fb" id="fb-q1"></div>
+    </div>
+
+    <div class="q" id="q2">
+      <h4>2. AI gives you a confidently-worded answer to a research question. What's the correct next step?</h4>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false,'q2','This is the most dangerous option. AI can produce entirely fabricated information with complete confidence.')">Use it — AI wouldn\'t state something confidently unless it\'s accurate</button>
+        <button class="opt" onclick="ans(this,true,'q2','✅ Exactly right. AI fluency means using AI as an accelerator for your expertise, not a replacement for it. The output is a starting point. Your verification is what makes it usable.')">Verify key claims against primary sources before using the information professionally</button>
+        <button class="opt" onclick="ans(this,false,'q2','Asking again may produce a different answer but not necessarily a more accurate one. The verification must happen externally.')">Ask AI the same question again to cross-check</button>
+        <button class="opt" onclick="ans(this,false,'q2','Avoiding AI research because of hallucination risk misses the efficiency benefit. The answer is to use AI with verification, not avoid it.')">Don\'t use AI for research — the hallucination risk is too high</button>
+      </div>
+      <div class="fb" id="fb-q2"></div>
+    </div>
+
+    <div class="q" id="q3">
+      <h4>3. An African professional says: "AI tools are designed for Western contexts — they won't help me." What's the most nuanced response?</h4>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false,'q3','This dismisses a real and documented limitation of current AI systems.')">They\'re wrong — AI is universal and works equally well everywhere</button>
+        <button class="opt" onclick="ans(this,false,'q3','This is fatalistic and misses the opportunity. The limitation creates a gap that can be turned into an advantage.')">They\'re right — African professionals should wait for African AI tools</button>
+        <button class="opt" onclick="ans(this,true,'q3','✅ Nuanced and correct. Western bias in AI is real and documented. AND the ability to apply AI tools to African problems — while understanding where they fall short — is an emerging competitive advantage, not a disqualification.')">Partially true — current AI has Western bias gaps. AND knowing both AI and African context creates a rare, powerful combination that most AI developers lack.</button>
+        <button class="opt" onclick="ans(this,false,'q3','This avoids the real answer, which is that both the limitation and the opportunity are real and must be acknowledged.')">It depends entirely on which tools they\'re using</button>
+      </div>
+      <div class="fb" id="fb-q3"></div>
+    </div>
+  </div>
+
+  <!-- 30-DAY CHALLENGE -->
+  <div class="sec-header">
+    <div class="sec-num">06 · Your Commitment</div>
+    <h2 class="sec-title">The 30-Day AI Fluency Challenge</h2>
+  </div>
+
+  <div class="card card-gold">
+    <h3 style="margin-bottom:14px">📅 Week by Week</h3>
+    <div style="display:flex;flex-direction:column;gap:14px;font-size:0.93rem">
+      <div><span style="color:var(--accent);font-weight:800">Week 1 — Explore:</span> <span style="color:var(--muted)">Use an AI tool for at least one work task per day. Just observe. No pressure to be efficient yet.</span></div>
+      <div><span style="color:var(--accent);font-weight:800">Week 2 — Apply:</span> <span style="color:var(--muted)">Complete Module 04 (Prompting). Use AI to produce one real deliverable — a proposal, a report, a lesson plan.</span></div>
+      <div><span style="color:var(--accent);font-weight:800">Week 3 — Integrate:</span> <span style="color:var(--muted)">Complete Module 05 (Automation). Identify and set up one workflow that saves you time every week.</span></div>
+      <div><span style="color:var(--accent);font-weight:800">Week 4 — Teach:</span> <span style="color:var(--muted)">Explain AI to one person who knows less than you. Teaching is the highest form of learning — and it builds your reputation.</span></div>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-badge">Exercise 04 · Your Personal Commitment</div>
+    <h3>📝 The 30-Day Declaration</h3>
+    <p>Write this now. It takes 3 minutes. It changes your relationship with this material from passive to active.</p>
+    <textarea placeholder="I, [your name], commit to becoming AI-fluent in 30 days.
+
+My specific goal is:
+
+The one fear I'm overcoming is:
+
+The one person I will share my progress with is:
+
+On Day 30, I will know I've succeeded when:
+
+Signed:                               Date:"></textarea>
+    <br><button class="btn" onclick="this.textContent='✅ Commitment locked. The 30 days start now.'">Lock In My Commitment</button>
+  </div>
+
+  <div class="next-mod">
+    <h3>The Foundation Is Set. Now Build on It.</h3>
+    <p>Module 02 shows you exactly how AI works — and why you, the human, will always be the most important part of the system.</p>
+    <a href="../../modules/01-ai-human-touch.html" class="btn-white">→ Module 02: AI &amp; Tech with a Human Touch</a>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{
+    const pct=Math.round((window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100);
+    document.getElementById('progress').style.width=pct+'%';
+    document.getElementById('prog-label').textContent=pct+'% complete';
+  });
+
+  function ans(btn,ok,qid,txt){
+    document.getElementById(qid).querySelectorAll('.opt').forEach(b=>b.disabled=true);
+    btn.classList.add(ok?'correct':'incorrect');
+    const fb=document.getElementById('fb-'+qid);
+    fb.className='fb show '+(ok?'correct':'incorrect');
+    fb.textContent=txt;
+  }
+
+  // Audit
+  const auditItems=[
+    {label:'I can explain what AI is to a non-technical colleague'},
+    {label:'I use at least one AI tool in my work regularly'},
+    {label:'I know how to write an effective prompt'},
+    {label:'I\'ve used AI to complete a real professional task'},
+    {label:'I understand at least one AI ethical concern'},
+    {label:'I know how to verify AI-generated information'},
+    {label:'I have a plan to develop AI skills in the next 30 days'},
+    {label:'I feel confident, not anxious, about AI in my field'},
+  ];
+  const container=document.getElementById('audit-rows');
+  auditItems.forEach((item,i)=>{
+    const row=document.createElement('div');
+    row.style.cssText='background:var(--card);border-radius:10px;padding:14px 18px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.06)';
+    row.innerHTML=`<div style="font-weight:600;font-size:0.91rem;margin-bottom:8px">${item.label}</div>
+    <div style="display:flex;gap:8px" class="audit-btns">
+      ${[1,2,3,4,5].map(v=>`<button onclick="auditRate(this,${i},${v})" style="width:38px;height:38px;border-radius:8px;background:var(--mid);border:2px solid rgba(255,255,255,0.08);color:var(--text);font-weight:700;cursor:pointer;transition:all 0.2s;font-size:0.95rem">${v}</button>`).join('')}
+    </div>`;
+    container.appendChild(row);
+  });
+
+  const ratings=new Array(auditItems.length).fill(0);
+  function auditRate(btn,i,v){
+    const btns=btn.closest('.audit-btns').querySelectorAll('button');
+    btns.forEach(b=>{b.style.background='var(--mid)';b.style.borderColor='rgba(255,255,255,0.08)';b.style.color='var(--text)'});
+    btn.style.background='var(--primary)';btn.style.borderColor='var(--primary)';btn.style.color='white';
+    ratings[i]=v;
+    const total=ratings.reduce((a,b)=>a+b,0);
+    const maxScore=auditItems.length*5;
+    const pct=Math.round((total/maxScore)*100);
+    const result=document.getElementById('audit-result');
+    result.style.display='flex';result.style.gap='16px';result.style.alignItems='center';
+    document.getElementById('audit-score').textContent=total+'/'+maxScore;
+    let level,desc,color;
+    if(pct<30){level='🌱 AI Beginner';desc='Perfect starting point. Every master was once a beginner. Your honest baseline is the most important data point — everything from here is progress.';color='#42A5F5'}
+    else if(pct<55){level='📚 AI Curious';desc='You\'ve started the journey. You have some exposure and real gaps. This masterclass will fill every one of them.';color='#AB47BC'}
+    else if(pct<75){level='⚡ AI Capable';desc='Solid foundation with clear areas for growth. Module 04 (Prompting) and Module 13 (Your Stack) will take you to the next level.';color='#F5C842'}
+    else{level='🚀 AI Fluent';desc='Strong foundation. This masterclass will sharpen your edge, fill ethics and security gaps, and build the revenue strategy in Module 14.';color='var(--success)'}
+    document.getElementById('audit-level').textContent=level;document.getElementById('audit-level').style.color=color;
+    document.getElementById('audit-desc').textContent=desc;
+  }
+</script>
+</body>
+</html>
